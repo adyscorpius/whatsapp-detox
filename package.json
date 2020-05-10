@@ -11,7 +11,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "watch": "nodemon",
-    "prod": "node dist/index.js",
+    "prod": "tsc && node dist/index.js",
     "build": "tsc",
     "test": "jest --coverage --verbose",
     "watch-test": "npm run test -- --watchAll",
