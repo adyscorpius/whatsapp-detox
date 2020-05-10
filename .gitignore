@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+.idea/
+.vscode/
+personal/
+.env
+messages.json
+config.json
