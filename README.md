@@ -40,6 +40,10 @@ in **type**, select between
 
 in **whitelist** .... Not working yet, ignore. 
 
+In **telegramConfig** add botKey as given by @botFather and chatId. Google how to get these keys.
+
+Save the config.json.
+
 ```
 {
   "keywords": [
@@ -62,6 +66,12 @@ in **whitelist** .... Not working yet, ignore.
 ```
 
 - Start the project
+
+```
+npm prod
+```
+
+- For debug and development
 
 ```
 npm start
