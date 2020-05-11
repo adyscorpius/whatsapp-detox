@@ -1,8 +1,11 @@
 # Whatsapp Detox Mode Client
 
+## Objective
+
 The main purpose of this hobby build was to reduce time to respond to messages that mattered. The client is very bare bones and requires NodeJS (Ideally the latest version, 12.6.3+ at the time of building.)
 
-# To Do
+## To Do
+
 - Add ability to whitelist some chats
 - Add blacklist to overrule keywords in certain cases (Prefer blacklist mode)
 - Add a Native UI to the product
@@ -30,17 +33,20 @@ cd whatsapp-bot
 npm install
 ```
 
-Add the following to config.json. Update keywords to include keywords of your choice. You can hundred of keywords. 
-In **mention**, replace the number with your own in "9198xxxxxxxx@c.us" format. This will ensure that mentions are treated distinctly from keywords.
+Add the following to config.json. Update keywords to include keywords of your choice. You can hundred of keywords.
+In `mention`, replace the number with your own in "9198xxxxxxxx@c.us" format. This will ensure that mentions are treated distinctly from keywords.
 
-in **type**, select between 
-  "CONSOLE" - Get chats in console (Terminal, Bash, etc.) (Nerd mode)
-  "TELEGRAM" - Get chats on your Telegram bot chat 
-  "NOTIFICATIONS" - Get native notifications for Windows/Linux/Mac OS
+in `type`, select between
 
-in **whitelist** .... Not working yet, ignore. 
+- `"CONSOLE"` - Get chats in console (Terminal, Bash, etc.) (Nerd mode)
+- `"TELEGRAM"` - Get chats on your Telegram bot chat
+- `"NOTIFICATIONS"` - Get native notifications for Windows/Linux/Mac OS
 
-In **telegramConfig** add botKey as given by @botFather and chatId. Google how to get these keys.
+in `whitelist` - Update soon (You can leave it empty right now).
+
+In `telegramConfig` add botKey as given by @botFather and chatId. Google how to get these keys.
+
+chatId is available at (https://api.telegram.org/bot%bot-token%/getUpdates). Send a message to your bot, open the link and replace %bot-token% with your own generated token. The response should give you your chat Id (numerical).
 
 Save the config.json.
 
@@ -68,7 +74,7 @@ Save the config.json.
 - Start the project
 
 ```
-npm prod
+npm run prod
 ```
 
 - For debug and development
@@ -77,4 +83,4 @@ npm prod
 npm start
 ```
 
-VICTORY! 
+## VICTORY!!
