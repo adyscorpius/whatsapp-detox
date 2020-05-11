@@ -7,11 +7,13 @@ The main purpose of this hobby build was to reduce time to respond to messages t
 ## To Do
 
 - Add ability to whitelist some chats
+- Build a reminder to reply to mentions (Customizable) (Potentially receive reminders on Telegram at defined time)
+- Mark groups where mute and notifications off as read.
 - Add blacklist to overrule keywords in certain cases (Prefer blacklist mode)
 - Add a Native UI to the product
 - Add some form of sound notifications for native experience.
 - Add ability to reply to messages
-- Build a reminder to reply to mentions (Customizable) (Potentially receive reminders on Telegram at defined time)
+
 - Add a way to detect forwards and ignore. Potentially where forward count > 1
 
 # Requirements
