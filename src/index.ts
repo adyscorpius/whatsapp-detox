@@ -6,9 +6,6 @@ const main = new MyWhatsapp(Config.type); // CHANGE TO CONSOLE IF YOU DON"T WANT
 (async () => {
   try {
     process.on("beforeExit", async () => await main.end());
-    process.on("SIGKILL", (t) => {
-      console.log(t);
-    });
     await main.init();
   } catch (e) {
     console.log("Master Error", e);
