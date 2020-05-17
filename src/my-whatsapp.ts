@@ -1,11 +1,19 @@
-import { create, Whatsapp, Message, HostDevice } from "sulla";
+import {
+  create,
+  Whatsapp,
+  Message,
+  HostDevice,
+  PartialMessage,
+  Chat,
+  SocketState,
+} from "sulla";
 import Telegram from "./telegram";
 import notifier from "node-notifier";
 import chalk from "chalk";
 
 import Config from "./Config";
 
-const { keywords, telegramConfig, mention } = Config;
+const { keywords, telegramConfig, mentions } = Config;
 type BotType = "CONSOLE" | "TELEGRAM" | "NOTIFICATIONS";
 
 let telegram = new Telegram();
@@ -14,6 +22,8 @@ class MyWhatsapp {
   client: Whatsapp;
   deviceInfo: HostDevice;
   botType: BotType;
+  groups: Chat[];
+  mutedGroups: Chat[];
 
   constructor(type: BotType) {
     this.botType = type;
@@ -38,6 +48,17 @@ class MyWhatsapp {
         this.client.useHere();
       }
     });
+
+    console.log("Loading Groups...");
+    this.groups = await this.client.getAllGroups();
+
+    //groups.map((chat) => this.handleGroups(chat));
+    console.log(chalk`{brightCyan List of Muted Groups.}`);
+    this.mutedGroups = this.groups
+      .filter((v) => v.muteExpiration != 0)
+      .map(this.handleGroups);
+    console.log("Loading Unread messages...");
+    //console.log(chalk`{grey Listening to Keywords - ${keywords.join(", ")}"}`);
     //console.log(JSON.stringify(this.deviceInfo, null, 2));
     this.client.onMessage(this.handleMessage);
   };
@@ -54,28 +75,53 @@ class MyWhatsapp {
       let time: string = new Date(
         message.timestamp * 1000
       ).toLocaleTimeString();
-      if (this.addressedToMe(message)) {
-        const groupName = message.chat.name || message.sender.shortName;
-        const text = this.defineText(message);
-        switch (this.botType) {
-          case "CONSOLE":
-            this.log(time, groupName, name, text);
-            break;
-          case "NOTIFICATIONS":
-            //console.log("Notification section");
-            this.notifyNative(groupName, name, text);
-            break;
-          case "TELEGRAM":
-            this.notifyTelegram(groupName, name, text);
-            break;
-          default:
-            console.warn(`Method ${this.botType} not found.`);
-        }
+
+      await this.markMutedGroupsSeen(message);
+
+      if (message.body && this.addressedToMe(message)) {
+        this.queueMessage(message, time, name);
       }
     } catch (e) {
       console.log("Error", e);
     }
   };
+
+  private async markMutedGroupsSeen(message: Message) {
+    if (
+      Config.autoReadMuteGroups &&
+      message.chat.isGroup &&
+      message.chat.muteExpiration
+    ) {
+      await this.client.sendSeen(message.chatId);
+    }
+  }
+  private handleGroups(chat: Chat) {
+    console.log(
+      chat.name,
+      new Date(chat.muteExpiration * 1000).toLocaleString()
+    );
+    return chat;
+  }
+
+  private queueMessage(message: Message, time: string, name: string) {
+    const groupName = message.chat.name || message.sender.shortName;
+    const text = this.defineText(message);
+
+    switch (this.botType) {
+      case "CONSOLE":
+        this.log(time, groupName, name, text);
+        break;
+      case "NOTIFICATIONS":
+        //console.log("Notification section");
+        this.notifyNative(groupName, name, text);
+        break;
+      case "TELEGRAM":
+        this.notifyTelegram(groupName, name, text);
+        break;
+      default:
+        console.warn(`Method ${this.botType} not found.`);
+    }
+  }
 
   private async notifyTelegram(groupName: string, name: string, text: string) {
     const outMessage: string = `<b>${groupName}</b>: <i>${name}</i>\n${text}`;
@@ -84,17 +130,18 @@ class MyWhatsapp {
   }
 
   private notifyNative(groupName: string, name: string, text: string) {
-    notifier.notify({
-      title: `${groupName}: ${name}`,
+    return notifier.notify({
+      title: `${name}: ${groupName}`,
       message: text,
       sound: true,
-      appID: "Whatsapp Mention",
+      appID: "Whatsapp Mentions",
     });
   }
 
   private addressedToMe(message: Message) {
     return (
-      (message.mentionedJidList.includes(mention) && message.isGroupMsg) ||
+      (mentions.some((mention) => message.mentionedJidList.includes(mention)) &&
+        message.isGroupMsg) ||
       keywords.some((pat: string) => message.body.toLowerCase().includes(pat))
     );
   }
@@ -107,7 +154,7 @@ class MyWhatsapp {
 
   private defineText(message: Message) {
     if (message.isMedia) return `Received ${message.mimetype} file.`;
-    return message.body;
+    return message.body ? message.body : "Empty message.";
   }
 }
 
