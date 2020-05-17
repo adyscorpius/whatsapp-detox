@@ -26,7 +26,18 @@ class MyWhatsapp {
     console.log(
       chalk` {green {underline ${`Logged in to Whatsapp as ${this.deviceInfo.pushname}.`}}}`
     );
-    console.log(chalk`{grey Listening to Keywords - ${keywords.join(", ")}"}`);
+
+    this.client.onStateChange((state) => {
+      console.log(state);
+      const conflicts = [
+        SocketState.CONFLICT,
+        SocketState.UNPAIRED,
+        SocketState.UNLAUNCHED,
+      ];
+      if (conflicts.includes(state)) {
+        this.client.useHere();
+      }
+    });
     //console.log(JSON.stringify(this.deviceInfo, null, 2));
     this.client.onMessage(this.handleMessage);
   };
