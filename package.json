@@ -21,7 +21,7 @@
     "chalk": "^4.0.0",
     "node-notifier": "^7.0.0",
     "node-telegram-bot-api": "^0.40.0",
-    "sulla": "^2.3.14"
+    "venom-bot": "^1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",

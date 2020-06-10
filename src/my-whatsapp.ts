@@ -6,7 +6,7 @@ import {
   PartialMessage,
   Chat,
   SocketState,
-} from "sulla";
+} from "venom-bot";
 import Telegram from "./telegram";
 import notifier from "node-notifier";
 import chalk from "chalk";
