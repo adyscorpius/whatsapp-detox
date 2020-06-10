@@ -52,14 +52,11 @@ class MyWhatsapp {
     console.log("Loading Groups...");
     this.groups = await this.client.getAllGroups();
 
-    //groups.map((chat) => this.handleGroups(chat));
-    console.log(chalk`{brightCyan List of Muted Groups.}`);
+    console.log(chalk`{cyanBright List of Muted Groups.}`);
     this.mutedGroups = this.groups
       .filter((v) => v.muteExpiration != 0)
       .map(this.handleGroups);
     console.log("Loading Unread messages...");
-    //console.log(chalk`{grey Listening to Keywords - ${keywords.join(", ")}"}`);
-    //console.log(JSON.stringify(this.deviceInfo, null, 2));
     this.client.onMessage(this.handleMessage);
   };
 
