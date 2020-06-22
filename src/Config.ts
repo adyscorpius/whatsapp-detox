@@ -1,7 +1,8 @@
 interface Config {
   keywords: Array<string>;
   whitelist?: Array<string>;
-  mention: string;
+  mentions: string[];
+  autoReadMuteGroups: boolean;
   type: "CONSOLE" | "NOTIFICATIONS" | "TELEGRAM";
   telegramConfig: {
     botKey: string;

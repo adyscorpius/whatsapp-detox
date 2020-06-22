@@ -1,5 +1,4 @@
 import TelegramBot from "node-telegram-bot-api";
-import { EventEmitter } from "events";
 import Config from "./Config";
 
 export default class Telegram {

@@ -18,7 +18,8 @@ This is a hobby project, and it solved a big need for me. While I cannot guarant
 - Shows all messages from groups in one place where you are mentioned or keywords exist.
 - It won't save the view. if you use Whatsapp Web elsewhere or exit program, window will reset.
 
-# To Do
+## To Do
+
 - Add ability to whitelist some chats
 - Allow saving of chats in a local file for later recall into window.
 - Add a resume option to reload where it left.
@@ -26,7 +27,7 @@ This is a hobby project, and it solved a big need for me. While I cannot guarant
 - Add a Native UI to the product (Native vs Web based?)
 - Add some form of sound notifications for native experience.
 - Add ability to reply to messages
-- Build a reminder to reply to mentions (Customizable) (Potentially receive reminders on Telegram at defined time)
+
 - Add a way to detect forwards and ignore. Potentially where forward count > 1
 - Force Use Here as an option (Required since Whatsapp Web does not work in multiple instances/places)
 - Potentially add Whatsapp Web window mode (Use that, in addition to bot). Not sure of memory implications
@@ -53,17 +54,20 @@ cd whatsapp-bot
 npm install
 ```
 
-Add the following to config.json. Update keywords to include keywords of your choice. You can hundred of keywords. 
-In **mention**, replace the number with your own in "9198xxxxxxxx@c.us" format. This will ensure that mentions are treated distinctly from keywords.
+Add the following to config.json. Update keywords to include keywords of your choice. You can hundred of keywords.
+In `mention`, replace the number with your own in "9198xxxxxxxx@c.us" format. This will ensure that mentions are treated distinctly from keywords.
 
-in **type**, select between 
-  "CONSOLE" - Get chats in console (Terminal, Bash, etc.) (Nerd mode)
-  "TELEGRAM" - Get chats on your Telegram bot chat 
-  "NOTIFICATIONS" - Get native notifications for Windows/Linux/Mac OS
+in `type`, select between
 
-in **whitelist** .... Not working yet, ignore. 
+- `"CONSOLE"` - Get chats in console (Terminal, Bash, etc.) (Nerd mode)
+- `"TELEGRAM"` - Get chats on your Telegram bot chat
+- `"NOTIFICATIONS"` - Get native notifications for Windows/Linux/Mac OS
 
-In **telegramConfig** add botKey as given by @botFather and chatId. Google how to get these keys.
+in `whitelist` - Update soon (You can leave it empty right now).
+
+In `telegramConfig` add botKey as given by @botFather and chatId. Google how to get these keys.
+
+chatId is available at (https://api.telegram.org/bot%bot-token%/getUpdates). Send a message to your bot, open the link and replace %bot-token% with your own generated token. The response should give you your chat Id (numerical).
 
 Save the config.json.
 
@@ -91,7 +95,7 @@ Save the config.json.
 - Start the project
 
 ```
-npm prod
+npm run prod
 ```
 
 - For debug and development
@@ -100,4 +104,4 @@ npm prod
 npm start
 ```
 
-VICTORY! 
+## VICTORY!!
