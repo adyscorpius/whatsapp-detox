@@ -1,8 +1,8 @@
 process.env.NTBA_FIX_319 = "1";
 import MyWhatsapp from "./my-whatsapp";
-import Config from "./Config";
+import config from "./Config";
 import readline from "readline";
-const main = new MyWhatsapp(Config.type); // CHANGE TO CONSOLE IF YOU DON"T WANT TO BE NOTIFIED ON TELEGRAM.
+const main = new MyWhatsapp(config.type); // CHANGE TO CONSOLE IF YOU DON"T WANT TO BE NOTIFIED ON TELEGRAM.
 
 (async () => {
   try {

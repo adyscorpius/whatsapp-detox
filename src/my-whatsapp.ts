@@ -11,9 +11,9 @@ import Telegram from "./telegram";
 import notifier from "node-notifier";
 import chalk from "chalk";
 
-import Config from "./Config";
+import config from "./Config";
 
-const { keywords, telegramConfig, mentions } = Config;
+const { keywords, telegramConfig, mentions } = config;
 type BotType = "CONSOLE" | "TELEGRAM" | "NOTIFICATIONS";
 
 let telegram = new Telegram();
@@ -85,7 +85,7 @@ class MyWhatsapp {
 
   private async markMutedGroupsSeen(message: Message) {
     if (
-      Config.autoReadMuteGroups &&
+      config.autoReadMuteGroups &&
       message.chat.isGroup &&
       message.chat.muteExpiration
     ) {

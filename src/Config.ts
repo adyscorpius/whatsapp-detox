@@ -9,7 +9,13 @@ interface Config {
     chatId: string;
   };
 }
+const createConfig = (): Config =>  {
+  try {
+    return require("../config.json");
+  } catch(e) {
+    console.log("Config.json not found. Please create from Readme.")
+  }
+}
+const config = createConfig();
 
-const Config: Config = require("../config.json");
-
-export default Config;
+export default config;
