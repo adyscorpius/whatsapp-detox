@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "chalk": "^4.0.0",
-    "node-notifier": "^7.0.0",
+    "node-notifier": "^8.0.1",
     "node-telegram-bot-api": "^0.40.0",
     "venom-bot": "^1.0.0"
   },
