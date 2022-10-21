@@ -9,7 +9,7 @@ import {
 } from "venom-bot";
 import Telegram from "./telegram";
 import notifier from "node-notifier";
-import chalk from "chalk";
+//import chalk from "chalk";
 
 import config from "./Config";
 
@@ -33,9 +33,9 @@ class MyWhatsapp {
     this.client = await create("personal");
     console.clear();
     this.deviceInfo = await this.client.getHostDevice();
-    console.log(
-      chalk` {green {underline ${`Logged in to Whatsapp as ${this.deviceInfo.pushname}.`}}}`
-    );
+    console.log(`Logged in to Whatsapp as ${this.deviceInfo.pushname}.`)
+      //chalk` {green {underline ${`Logged in to Whatsapp as ${this.deviceInfo.pushname}.`}}}`
+    // );
 
     this.client.onStateChange((state) => {
       console.log(state);
@@ -50,9 +50,8 @@ class MyWhatsapp {
     });
 
     console.log("Loading Groups...");
-    this.groups = await this.client.getAllGroups();
-
-    console.log(chalk`{cyanBright List of Muted Groups.}`);
+    this.groups = await this.client.getChatGroupNewMsg();
+    console.log(`List of Muted Groups.`);
     this.mutedGroups = this.groups
       .filter((v) => v.muteExpiration != 0)
       .map(this.handleGroups);
@@ -144,8 +143,7 @@ class MyWhatsapp {
   }
 
   private log(time: string, groupName: string, name: string, text: string) {
-    console.log(
-      chalk`{cyanBright ${time}} - {cyanBright ${name} @ ${groupName}}\n{greenBright ${text}}`
+    console.log(`${time}} - ${name} @ ${groupName}}\n${text}`
     );
   }
 
